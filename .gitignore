@@ -1,0 +1,6 @@
+node_modules/
+dist/
+front-dist/
+.env
+*.log
+.DS_Store

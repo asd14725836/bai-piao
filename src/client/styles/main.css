@@ -1,0 +1,473 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== 科技感暗色主题 ===== */
+:root {
+  --background: #0a0a1a;
+  --foreground: #e0e0ff;
+  --card: rgba(15, 15, 35, 0.8);
+  --card-foreground: #e0e0ff;
+  --border: rgba(100, 100, 255, 0.15);
+  --ring: #6366f1;
+  
+  /* 科技感渐变色 */
+  --glow-cyan: #00d4ff;
+  --glow-purple: #a855f7;
+  --glow-pink: #ec4899;
+  --glow-green: #10b981;
+  --glow-amber: #f59e0b;
+  --glow-red: #ef4444;
+  
+  --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --radius: 0.75rem;
+}
+
+/* ===== 全局基础样式 ===== */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+/* 科技感网格背景 - 动态版 */
+.tech-bg {
+  background: 
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 40%),
+    var(--background);
+  background-size: 
+    50px 50px,
+    50px 50px,
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  animation: grid-breathe 8s ease-in-out infinite;
+}
+
+@keyframes grid-breathe {
+  0%, 100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 2px 2px, 0 0, 0 0, 0 0, 0 0; }
+  50% { background-position: 0 0, 2px 2px, 0 0, 0 0, 0 0; }
+  75% { background-position: -2px -2px, 0 0, 0 0, 0 0, 0 0; }
+}
+
+/* ===== 毛玻璃卡片 ===== */
+.glass-card {
+  background: rgba(15, 15, 35, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(100, 100, 255, 0.1);
+  border-radius: var(--radius);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 霓虹光晕边框 - 常亮 */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+  z-index: -1;
+  opacity: 0.6;
+  animation: neon-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes neon-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* 卡片顶部流动扫描线 */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0) 10%,
+    rgba(99, 102, 241, 0.6) 30%,
+    rgba(168, 85, 247, 0.8) 50%,
+    rgba(236, 72, 153, 0.6) 70%,
+    rgba(99, 102, 241, 0) 90%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: scan-line 3s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+@keyframes scan-line {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.glass-card:hover {
+  border-color: rgba(100, 100, 255, 0.25);
+  box-shadow: 
+    0 4px 30px rgba(99, 102, 241, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* hover时扫描线加速变亮 */
+.glass-card:hover::after {
+  animation-duration: 1.5s;
+  opacity: 1;
+}
+
+/* ===== 渐变文字 ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #00d4ff 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #00d4ff 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== 霓虹进度条 ===== */
+.neon-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(30, 30, 60, 0.8);
+  overflow: hidden;
+  position: relative;
+}
+
+.neon-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* CPU 渐变：蓝→青 */
+.bar-cpu { background: linear-gradient(90deg, #3b82f6, #06b6d4); box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+/* 内存渐变：紫→粉 */
+.bar-mem { background: linear-gradient(90deg, #a855f7, #ec4899); box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+/* 磁盘渐变：绿→青 */
+.bar-disk { background: linear-gradient(90deg, #10b981, #06b6d4); box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+
+/* 告警状态 */
+.bar-warning { background: linear-gradient(90deg, #f59e0b, #ef4444) !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.5) !important; }
+.bar-danger { background: linear-gradient(90deg, #ef4444, #dc2626) !important; box-shadow: 0 0 25px rgba(239, 68, 68, 0.6) !important; animation: pulse-danger 1s infinite; }
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ===== 呼吸灯效果 ===== */
+.pulse-dot {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    opacity: 1;
+  }
+  50% { 
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    opacity: 0.8;
+  }
+}
+
+/* ===== 数据卡片 ===== */
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(160, 160, 200, 0.7);
+}
+
+/* ===== 状态指示灯 ===== */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.3;
+  filter: blur(4px);
+}
+
+/* 脉冲光环 - 扩散光圈 */
+.status-dot-green::after,
+.status-dot-amber::after,
+.status-dot-red::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: pulse-ring 2.5s ease-out infinite;
+  pointer-events: none;
+}
+
+.status-dot-amber::after { animation-delay: 0.3s; }
+.status-dot-red::after { animation-delay: 0.6s; }
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.5); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.status-dot-green { background: #10b981; color: #10b981; }
+.status-dot-amber { background: #f59e0b; color: #f59e0b; }
+.status-dot-red { background: #ef4444; color: #ef4444; }
+.status-dot-gray { background: #6b7280; color: #6b7280; }
+
+/* ===== 微光边框 ===== */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ===== 数字闪烁动画 ===== */
+@keyframes number-flash {
+  0% { color: var(--glow-cyan); text-shadow: 0 0 10px var(--glow-cyan); }
+  100% { color: var(--foreground); text-shadow: none; }
+}
+
+.number-flash {
+  animation: number-flash 0.5s ease-out;
+}
+
+/* ===== 进度条发光 ===== */
+.bar-glow {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+/* ===== 暗色滚动条 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 15, 35, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 255, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 255, 0.5);
+}
+
+/* ===== 响应式调整 ===== */
+@media (max-width: 640px) {
+  .stat-value {
+    font-size: 1.25rem;
+  }
+}
+
+/* ===== 赛博故障文字 ===== */
+.glitch-target {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-active {
+  animation: glitch-skew 0.3s ease;
+}
+
+.glitch-active::before,
+.glitch-active::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glitch-active::before {
+  color: #ff00ff;
+  animation: glitch-offset 0.25s ease-out;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch-active::after {
+  color: #00ffff;
+  animation: glitch-offset 0.25s ease-in;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-3deg); }
+  40% { transform: skew(2deg); }
+  60% { transform: skew(-1deg); }
+  80% { transform: skew(3deg); }
+  100% { transform: skew(0deg); }
+}
+
+@keyframes glitch-offset {
+  0% { transform: translate(0); }
+  25% { transform: translate(-3px, 2px); }
+  50% { transform: translate(3px, -1px); }
+  75% { transform: translate(-2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+/* ===== 雷达扫描 ===== */
+.radar-scanner {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.03);
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.radar-scanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(168, 85, 247, 0.05) 50%,
+    transparent 100%
+  );
+  transform-origin: bottom left;
+  animation: radar-sweep 3s linear infinite;
+  border-radius: 100% 0 0 0;
+}
+
+.radar-scanner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  background: #a855f7;
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px #a855f7,
+    0 0 12px rgba(168, 85, 247, 0.5),
+    0 0 20px rgba(168, 85, 247, 0.3),
+    /* 模拟几个光点 */
+    20px -15px 0 2px rgba(0, 212, 255, 0.4),
+    -15px 10px 0 1px rgba(236, 72, 153, 0.3),
+    10px 20px 0 1.5px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 雷达刻度线 */
+.radar-scanner .ring-1,
+.radar-scanner .ring-2,
+.radar-scanner .ring-3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.radar-scanner .ring-1 { width: 30px; height: 30px; }
+.radar-scanner .ring-2 { width: 55px; height: 55px; }
+.radar-scanner .ring-3 { width: 76px; height: 76px; }
