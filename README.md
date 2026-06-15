@@ -7,8 +7,8 @@
 | 目录 | 说明 |
 |------|------|
 | [server-monitor](./server-monitor/) | 轻量级服务监控面板（Hono + Vue 3） |
-| IPTV | 直播源整理（施工中...） |
-| free-api | 免费 API 资源（施工中...） |
+| [iptv](./iptv/) | 直播源资源整理（含30+仓库导航+使用教程） |
+| [free-api](./free-api/) | 免费 API 资源（施工中...） |
 
 ## 说明
 
